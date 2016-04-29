@@ -35,5 +35,18 @@ config.api.todos.update = base + '/todos/:todo_id';//PUT
 config.api.todos.delete = base + '/todos/:todo_id';//DELETE
 config.api.todos.tablename = 'todos';
 
+// Api users gestion
+config.api.users = {};
+config.api.users.tablename = 'users';
+
+
+// Realtion lists_users Database
+config.api.lists_users = config.api.lists.tablename + "_" + config.api.users.tablename
+
+
+
+
+config.testTable = 'items';
+
 
 module.exports = config;

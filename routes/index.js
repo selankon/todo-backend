@@ -2,10 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 var pg = require('pg');
+
 var path = require('path');
+// Configuration file
 var config = require(path.join(__dirname, '../', 'config'));
-// var config = require(path.join(__dirname, '../', 'config'));
-var connectionString = config.connectionString;
+// var connectionString = config.connectionString;
+
+// List object
+var List = require(path.join(__dirname, '../', './models/list'));
 
 // var config = require('.././config');
 // var connectionString =  config.db.complete_path;
@@ -17,60 +21,68 @@ router.get('/', function(req, res, next) {
 });
 
 
-//*** [ lists ! ] ***
+
+// *** [ lists ! ] ***
 // LIST API :
 // ------------------------------------
 // create new list
 // read all lists of user
 // delete a list of user
 // update a list of user
+
 // LIST CREATION
 router.post(config.api.lists.create, function(req, res) {
 
     var results = [];
 
     // Grab data from http request
-    var list = {};
-    if (req.body.name){ //NAME
-      list.name = req.body.name;
-    }
-    if (req.body.maxDate) { //MAXDATE
-      list.maxDate = req.body.maxDate;
-    }
-    if (req.body.owner) {//OWNER
-      list.owner = req.body.owner;
-    }
-    list.creation = new Date();//CREATION DATE
+    // var data = {};
+    // if (req.body.name){ //NAME
+    //   data.name = req.body.name;
+    // }
+    // if (req.body.maxDate) { //MAXDATE
+    //   data.maxDate = req.body.maxDate;
+    // }
+    // if (req.body.owner) {//OWNER
+    //   data.owner = req.body.owner;
+    // }
+    // data.creation = new Date();//CREATION DATE
+
+
+    var list  = new List (req.body);
+    // console.log("LIST RECEIVED: " , list);
+
+    list.create(res);
 
 
     // Get a Postgres client from the connection pool
-    pg.connect(connectionString, function(err, client, done) {
-        // Handle connection errors
-        if(err) {
-          done();
-          console.log(err);
-          return res.status(500).json({ success: false, data: err});
-        }
-
-        // SQL Query > Insert Data
-        client.query("INSERT INTO "+config.api.lists.create+"(name, creation, max_date, ) values($1, $2)", [data.text, data.complete]);
-
-        // SQL Query > Select Data
-        var query = client.query("SELECT * FROM "+config.api.lists.create+" ORDER BY id ASC");
-
-        // Stream results back one row at a time
-        query.on('row', function(row) {
-            results.push(row);
-        });
-
-        // After all data is returned, close connection and return results
-        query.on('end', function() {
-            done();
-            return res.json(results);
-        });
-
-
-    });
+    // pg.connect(connectionString, function(err, client, done) {
+    //     // Handle connection errors
+    //     if(err) {
+    //       done();
+    //       console.log(err);
+    //       return res.status(500).json({ success: false, data: err});
+    //     }
+    //
+    //     // SQL Query > Insert Data
+    //     client.query("INSERT INTO "+config.api.lists.create+"(name, creation, max_date, ) values($1, $2)", [data.text, data.complete]);
+    //
+    //     // SQL Query > Select Data
+    //     var query = client.query("SELECT * FROM "+config.api.lists.create+" ORDER BY id ASC");
+    //
+    //     // Stream results back one row at a time
+    //     query.on('row', function(row) {
+    //         results.push(row);
+    //     });
+    //
+    //     // After all data is returned, close connection and return results
+    //     query.on('end', function() {
+    //         done();
+    //         return res.json(results);
+    //     });
+    //
+    //
+    // });
 });
 
 
