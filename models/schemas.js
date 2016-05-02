@@ -1,10 +1,11 @@
 var schemas = {
     list: {
-          _id: null,
-          name: null,
-          creation: null,
-          maxDate: null,
-          owner: null
+        _id: null,
+        name: null,
+        creation: null,
+        maxDate: null,
+        owner: null,
+        lastUpdate: null
     },
     todos: {
         _id: null,

@@ -21,69 +21,49 @@ router.get('/', function(req, res, next) {
 });
 
 
-
-// *** [ lists ! ] ***
-// LIST API :
+// *******************
+// *** [ LISTS ! ] ***
+// *******************
+// Lists API :
 // ------------------------------------
-// create new list
-// read all lists of user
-// delete a list of user
-// update a list of user
+// Create new list
+// Read all lists of user
+// Delete a list of user
+// Update a list of user
 
 // LIST CREATION
 router.post(config.api.lists.create, function(req, res) {
-
-    var results = [];
-
-    // Grab data from http request
-    // var data = {};
-    // if (req.body.name){ //NAME
-    //   data.name = req.body.name;
-    // }
-    // if (req.body.maxDate) { //MAXDATE
-    //   data.maxDate = req.body.maxDate;
-    // }
-    // if (req.body.owner) {//OWNER
-    //   data.owner = req.body.owner;
-    // }
-    // data.creation = new Date();//CREATION DATE
-
-
     var list  = new List (req.body);
-    // console.log("LIST RECEIVED: " , list);
-
     list.create(res);
-
-
-    // Get a Postgres client from the connection pool
-    // pg.connect(connectionString, function(err, client, done) {
-    //     // Handle connection errors
-    //     if(err) {
-    //       done();
-    //       console.log(err);
-    //       return res.status(500).json({ success: false, data: err});
-    //     }
-    //
-    //     // SQL Query > Insert Data
-    //     client.query("INSERT INTO "+config.api.lists.create+"(name, creation, max_date, ) values($1, $2)", [data.text, data.complete]);
-    //
-    //     // SQL Query > Select Data
-    //     var query = client.query("SELECT * FROM "+config.api.lists.create+" ORDER BY id ASC");
-    //
-    //     // Stream results back one row at a time
-    //     query.on('row', function(row) {
-    //         results.push(row);
-    //     });
-    //
-    //     // After all data is returned, close connection and return results
-    //     query.on('end', function() {
-    //         done();
-    //         return res.json(results);
-    //     });
-    //
-    //
-    // });
 });
+
+// GET LISTS FROM USER
+router.get(config.api.lists.get, function(req, res) {
+    // This will be changed wen a JWT are configurated
+    var userToGet = req.headers.name;
+    List.getLists(userToGet, res);
+});
+
+// LIST RELATION DELETION
+router.delete(config.api.lists.delete, function(req, res) {
+    // This will be changed wen a JWT are configurated
+    var userName = req.headers.name;
+    // var id = req.params._id;
+    console.log("DELETE PETITION : username -> " , userName , " list id -> " , id);
+    List.deleteRelation(id, userName, res);
+
+});
+
+// LIST UPDATE
+router.put(config.api.lists.update, function(req, res) {
+
+  console.log("LIST UPDATE MIERDA JOER PUUUUUUUUTA VIDA TETE", req.body);
+    var id = req.params._id; // Get the id
+    var list  = new List (req.body); // Get the parameters of the list and create new list object
+    list.update(res);
+});
+
+
 
 
 //*** [ todos ! ]

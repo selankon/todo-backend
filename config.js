@@ -21,10 +21,10 @@ config.api = {};
 
 // Api list gestion
 config.api.lists = {};
-config.api.lists.create = base + '/lists';//POST - Create list of specific user
-config.api.lists.read = base + '/lists';//GET - Return lists of specific user
-config.api.lists.update = base + '/lists/:list_id';//PUT
-config.api.lists.delete = base + '/lists/:list_id';//DELETE
+config.api.lists.create = base + '/lists'; //POST - Create list of specific user
+config.api.lists.get = base + '/lists'; //GET - Return lists of specific user
+config.api.lists.delete = base + '/lists/:_id'; //DELETE
+config.api.lists.update = base + '/lists/:_id'; //PUT - Update a list
 config.api.lists.tablename = 'lists';
 
 // Api todos gestion

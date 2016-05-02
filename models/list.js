@@ -12,19 +12,41 @@ var List = function (data) {
 
 List.prototype.data = {}
 
-List.prototype.changeName = function (name) {
-  this.data.name = name;
-}
+// List.prototype.changeName = function (name) {
+//   this.data.name = name;
+// }
 
+// Create a list associated to user
 List.prototype.create = function (res) {
   this.data.creation = new Date ();
+  this.data.lastUpdate = new Date ();
   this.data = this.sanitize(this.data);
   Dao.create (this.data, res);
 }
 
-List.getListsOfOwner = function (res) {
-  Dao.getListsOfOwner (this.data, res)
+// Update a list 
+List.prototype.update = function (res) {
+  this.data.lastUpdate = new Date ();
+  this.data = this.sanitize(this.data);
+  Dao.update (this.data, res);
 }
+
+// Get all list of a user
+List.getLists = function (name, res) {
+  Dao.getLists (name, res)
+}
+
+// Delete the relation between a list and a user
+List.deleteRelation = function (id, name, res) {
+  Dao.deleteRelation (id, name, res)
+}
+
+
+// Get single list
+// List.getById = function (id, res) {
+//   Dao.get (id, res) ;
+// }
+
 
 
 
