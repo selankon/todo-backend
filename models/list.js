@@ -24,7 +24,7 @@ List.prototype.create = function (res) {
   Dao.create (this.data, res);
 }
 
-// Update a list 
+// Update a list
 List.prototype.update = function (res) {
   this.data.lastUpdate = new Date ();
   this.data = this.sanitize(this.data);
@@ -41,6 +41,7 @@ List.deleteRelation = function (id, name, res) {
   Dao.deleteRelation (id, name, res)
 }
 
+// TODO: Erase a list for all users if you are the owner
 
 // Get single list
 // List.getById = function (id, res) {

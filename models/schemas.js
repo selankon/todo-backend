@@ -13,13 +13,13 @@ var schemas = {
         done: null,
         name: null,
         creation: null,
-        maxDate: null
+        maxDate: null,
+        lastUpdate: null
     },
     user: {
         _id: null,
         mail: null,
         password: null,
-        name: null,
         img: null,
         username: null,
         creation: null

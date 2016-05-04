@@ -1,0 +1,378 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.3.12
+-- Dumped by pg_dump version 9.3.12
+-- Started on 2016-05-04 18:31:21 CEST
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 1 (class 3079 OID 11756)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 1996 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 172 (class 1259 OID 16417)
+-- Name: list_id_seq; Type: SEQUENCE; Schema: public; Owner: todouser
+--
+
+CREATE SEQUENCE list_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.list_id_seq OWNER TO todouser;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 171 (class 1259 OID 16409)
+-- Name: lists; Type: TABLE; Schema: public; Owner: todouser; Tablespace: 
+--
+
+CREATE TABLE lists (
+    name text DEFAULT 'undefined'::text,
+    max_date timestamp without time zone,
+    _id_list integer DEFAULT nextval('list_id_seq'::regclass) NOT NULL,
+    owner text DEFAULT 'public'::text NOT NULL,
+    creation timestamp with time zone,
+    last_update timestamp without time zone
+);
+
+
+ALTER TABLE public.lists OWNER TO todouser;
+
+--
+-- TOC entry 177 (class 1259 OID 16466)
+-- Name: lists_users; Type: TABLE; Schema: public; Owner: todouser; Tablespace: 
+--
+
+CREATE TABLE lists_users (
+    _id_lists integer NOT NULL,
+    _id_users text NOT NULL,
+    editable boolean
+);
+
+
+ALTER TABLE public.lists_users OWNER TO todouser;
+
+--
+-- TOC entry 174 (class 1259 OID 16428)
+-- Name: todo_id_seq; Type: SEQUENCE; Schema: public; Owner: todouser
+--
+
+CREATE SEQUENCE todo_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.todo_id_seq OWNER TO todouser;
+
+--
+-- TOC entry 173 (class 1259 OID 16422)
+-- Name: todos; Type: TABLE; Schema: public; Owner: todouser; Tablespace: 
+--
+
+CREATE TABLE todos (
+    _id_todo integer DEFAULT nextval('todo_id_seq'::regclass) NOT NULL,
+    _id_list integer NOT NULL,
+    done_todo boolean,
+    name_todo text,
+    creation_date_todo timestamp without time zone,
+    max_date_todo timestamp without time zone,
+    last_update_date timestamp without time zone
+);
+
+
+ALTER TABLE public.todos OWNER TO todouser;
+
+--
+-- TOC entry 176 (class 1259 OID 16461)
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: todouser
+--
+
+CREATE SEQUENCE user_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_seq OWNER TO todouser;
+
+--
+-- TOC entry 175 (class 1259 OID 16455)
+-- Name: users; Type: TABLE; Schema: public; Owner: todouser; Tablespace: 
+--
+
+CREATE TABLE users (
+    _id_user integer DEFAULT nextval('user_id_seq'::regclass) NOT NULL,
+    mail_user text,
+    password_user text DEFAULT 'unknown'::text NOT NULL,
+    img text DEFAULT 'http://postscriptum-games.it/assets/post-scriptum-unknown-user-cdef8013ca3dde756128fb8cf390a648.png'::text,
+    user_name text DEFAULT 'unknown'::text NOT NULL,
+    creation timestamp with time zone
+);
+
+
+ALTER TABLE public.users OWNER TO todouser;
+
+--
+-- TOC entry 1997 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: todouser
+--
+
+SELECT pg_catalog.setval('list_id_seq', 26, true);
+
+
+--
+-- TOC entry 1982 (class 0 OID 16409)
+-- Dependencies: 171
+-- Data for Name: lists; Type: TABLE DATA; Schema: public; Owner: todouser
+--
+
+COPY lists (name, max_date, _id_list, owner, creation, last_update) FROM stdin;
+friskis	\N	8	test	2016-04-29 11:00:25+02	\N
+test_lis	\N	9	test	2016-04-29 11:13:28+02	\N
+test_lis	\N	10	test	2016-04-29 11:14:22+02	\N
+test_lis	\N	11	test	2016-04-29 11:19:51+02	\N
+test_lis	\N	12	test	2016-04-29 11:20:21+02	\N
+test_lis	\N	13	test	2016-04-29 11:20:36+02	\N
+test_lis	\N	14	test	2016-04-29 11:21:31+02	\N
+test_lis	\N	15	test	2016-04-29 11:24:43+02	\N
+test_list	\N	16	test	2016-04-29 11:30:23+02	\N
+test_list	\N	17	test	2016-04-29 11:36:53+02	\N
+test_list	\N	18	test	2016-04-29 11:38:08+02	\N
+test_list	\N	19	test	2016-04-29 11:38:22+02	\N
+test_list	\N	20	test	2016-04-29 11:40:29+02	\N
+test_list	\N	21	test	2016-04-29 11:40:55+02	\N
+test_list	\N	23	test	2016-04-29 11:46:48+02	\N
+test_list	\N	24	test	2016-04-29 11:46:49+02	\N
+test_list	\N	25	nose	2016-04-29 12:13:25+02	\N
+test_list	\N	26	nose	2016-04-29 12:14:02+02	\N
+test_midified	\N	22	kiriko	2016-04-29 11:41:17+02	2016-05-02 14:15:15
+\.
+
+
+--
+-- TOC entry 1988 (class 0 OID 16466)
+-- Dependencies: 177
+-- Data for Name: lists_users; Type: TABLE DATA; Schema: public; Owner: todouser
+--
+
+COPY lists_users (_id_lists, _id_users, editable) FROM stdin;
+22	test	t
+23	test	t
+24	test	t
+26	nose	t
+22	super	\N
+\.
+
+
+--
+-- TOC entry 1998 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: todo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: todouser
+--
+
+SELECT pg_catalog.setval('todo_id_seq', 1, true);
+
+
+--
+-- TOC entry 1984 (class 0 OID 16422)
+-- Dependencies: 173
+-- Data for Name: todos; Type: TABLE DATA; Schema: public; Owner: todouser
+--
+
+COPY todos (_id_todo, _id_list, done_todo, name_todo, creation_date_todo, max_date_todo, last_update_date) FROM stdin;
+0	24	f	Colada	\N	\N	\N
+1	24	t	testers	\N	\N	\N
+\.
+
+
+--
+-- TOC entry 1999 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: todouser
+--
+
+SELECT pg_catalog.setval('user_id_seq', 24, true);
+
+
+--
+-- TOC entry 1986 (class 0 OID 16455)
+-- Dependencies: 175
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: todouser
+--
+
+COPY users (_id_user, mail_user, password_user, img, user_name, creation) FROM stdin;
+1	kk@kk	kk	http://postscriptum-games.it/assets/post-scriptum-unknown-user-cdef8013ca3dde756128fb8cf390a648.png	nose	\N
+2	test@gmail.com	test	http://postscriptum-games.it/assets/post-scriptum-unknown-user-cdef8013ca3dde756128fb8cf390a648.png	test	\N
+3	vojo@dkf	po	http://postscriptum-games.it/assets/post-scriptum-unknown-user-cdef8013ca3dde756128fb8cf390a648.png	kiriko	\N
+4	test_tes@test.com	atutudire	\N	user_test1	\N
+24	super@superuser.com	$2a$10$dzUm3t4hNyFEKHE5QXF/W.2WnMYbcKYYR9VBG5vDfgPTChw54Fyza	https://scotch.io/wp-content/themes/scotchpress/img/logo-large.png	super	2016-05-04 14:03:26+02
+\.
+
+
+--
+-- TOC entry 1870 (class 2606 OID 16595)
+-- Name: list_users_PK; Type: CONSTRAINT; Schema: public; Owner: todouser; Tablespace: 
+--
+
+ALTER TABLE ONLY lists_users
+    ADD CONSTRAINT "list_users_PK" PRIMARY KEY (_id_lists, _id_users);
+
+
+--
+-- TOC entry 1859 (class 2606 OID 16420)
+-- Name: primaryKey; Type: CONSTRAINT; Schema: public; Owner: todouser; Tablespace: 
+--
+
+ALTER TABLE ONLY lists
+    ADD CONSTRAINT "primaryKey" PRIMARY KEY (_id_list);
+
+
+--
+-- TOC entry 1862 (class 2606 OID 16432)
+-- Name: primarykey; Type: CONSTRAINT; Schema: public; Owner: todouser; Tablespace: 
+--
+
+ALTER TABLE ONLY todos
+    ADD CONSTRAINT primarykey PRIMARY KEY (_id_todo, _id_list);
+
+
+--
+-- TOC entry 1864 (class 2606 OID 16580)
+-- Name: uniqueUsername; Type: CONSTRAINT; Schema: public; Owner: todouser; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT "uniqueUsername" UNIQUE (user_name);
+
+
+--
+-- TOC entry 1866 (class 2606 OID 16499)
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: todouser; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (_id_user);
+
+
+--
+-- TOC entry 1860 (class 1259 OID 16438)
+-- Name: fki_listKey; Type: INDEX; Schema: public; Owner: todouser; Tablespace: 
+--
+
+CREATE INDEX "fki_listKey" ON todos USING btree (_id_list);
+
+
+--
+-- TOC entry 1867 (class 1259 OID 16596)
+-- Name: fki_list_users_usersFK; Type: INDEX; Schema: public; Owner: todouser; Tablespace: 
+--
+
+CREATE INDEX "fki_list_users_usersFK" ON lists_users USING btree (_id_users);
+
+
+--
+-- TOC entry 1868 (class 1259 OID 16480)
+-- Name: fki_lits_users_listsFK; Type: INDEX; Schema: public; Owner: todouser; Tablespace: 
+--
+
+CREATE INDEX "fki_lits_users_listsFK" ON lists_users USING btree (_id_lists);
+
+
+--
+-- TOC entry 1857 (class 1259 OID 16586)
+-- Name: fki_ownerFk; Type: INDEX; Schema: public; Owner: todouser; Tablespace: 
+--
+
+CREATE INDEX "fki_ownerFk" ON lists USING btree (owner);
+
+
+--
+-- TOC entry 1872 (class 2606 OID 16439)
+-- Name: listKey; Type: FK CONSTRAINT; Schema: public; Owner: todouser
+--
+
+ALTER TABLE ONLY todos
+    ADD CONSTRAINT "listKey" FOREIGN KEY (_id_list) REFERENCES lists(_id_list);
+
+
+--
+-- TOC entry 1874 (class 2606 OID 16597)
+-- Name: lists_users__id_users_fkey; Type: FK CONSTRAINT; Schema: public; Owner: todouser
+--
+
+ALTER TABLE ONLY lists_users
+    ADD CONSTRAINT lists_users__id_users_fkey FOREIGN KEY (_id_users) REFERENCES users(user_name);
+
+
+--
+-- TOC entry 1873 (class 2606 OID 16475)
+-- Name: lits_users_listsFK; Type: FK CONSTRAINT; Schema: public; Owner: todouser
+--
+
+ALTER TABLE ONLY lists_users
+    ADD CONSTRAINT "lits_users_listsFK" FOREIGN KEY (_id_lists) REFERENCES lists(_id_list);
+
+
+--
+-- TOC entry 1871 (class 2606 OID 16581)
+-- Name: ownerFk; Type: FK CONSTRAINT; Schema: public; Owner: todouser
+--
+
+ALTER TABLE ONLY lists
+    ADD CONSTRAINT "ownerFk" FOREIGN KEY (owner) REFERENCES users(user_name);
+
+
+--
+-- TOC entry 1995 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2016-05-04 18:31:21 CEST
+
+--
+-- PostgreSQL database dump complete
+--
+
