@@ -39,8 +39,8 @@ config.api.todos.tablename = 'todos';
 
 // Api users gestion
 config.api.users = {};
-config.api.users.create = base + '/users';//POST
-config.api.users.get = base + '/users';//GET
+// config.api.users.create = base + '/users';//POST
+// config.api.users.get = base + '/users';//GET
 config.api.users.tablename = 'users';
 
 
@@ -49,3 +49,7 @@ config.api.lists_users = config.api.lists.tablename + "_" + config.api.users.tab
 
 
 module.exports = config;
+//
+// module.exports = {
+//   config : config
+// };
