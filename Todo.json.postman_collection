@@ -7,8 +7,8 @@
 		"b3dc080c-cb6c-9ea3-0265-d10a6c952ab6",
 		"e30cc780-65db-8b61-85b3-9cde3cf5ba6e",
 		"a1da96e2-dc07-5020-de43-b4d9b131239d",
-		"05587900-f113-ecab-382c-c33657df771d",
 		"a5a319b6-2f61-3a5c-c2fa-b37af5a61450",
+		"03863ae7-fd71-bcc2-b2ac-590839ca807c",
 		"5e636b96-0f9e-ed14-1ae3-00c3becbf7d8",
 		"5ff91c98-0ae9-9a00-7b05-32e8ebf12ff8"
 	],
@@ -19,16 +19,17 @@
 	"public": false,
 	"requests": [
 		{
-			"id": "05587900-f113-ecab-382c-c33657df771d",
+			"id": "03863ae7-fd71-bcc2-b2ac-590839ca807c",
 			"headers": "",
-			"url": "http://localhost:3000/api/users",
-			"preRequestScript": null,
+			"url": "http://localhost:3000/api/user",
 			"pathVariables": {},
+			"preRequestScript": null,
 			"method": "POST",
+			"collectionId": "b6988b71-02ca-7abf-0da8-132c7177653a",
 			"data": [
 				{
 					"key": "username",
-					"value": "user_test1",
+					"value": "baila",
 					"type": "text",
 					"enabled": true
 				},
@@ -46,14 +47,15 @@
 				}
 			],
 			"dataMode": "urlencoded",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1462265440730,
 			"name": "user-create",
 			"description": "",
-			"collectionId": "b6988b71-02ca-7abf-0da8-132c7177653a",
-			"responses": []
+			"descriptionFormat": "html",
+			"time": 1462792520288,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
 		},
 		{
 			"id": "5e636b96-0f9e-ed14-1ae3-00c3becbf7d8",

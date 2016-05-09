@@ -27,6 +27,8 @@ module.exports = function(clearRoutes, authedRoutes , app, jwt) {
   // route to authenticate a user (POST http://localhost:8080/api/authenticate)
   clearRoutes.post('/auth', function(req, res) {
 
+    // console.log("AUTH REQ . " , req.body);
+
     // find the user
     User.findOne( req.body.username, function(err, user) {
 
@@ -55,7 +57,8 @@ module.exports = function(clearRoutes, authedRoutes , app, jwt) {
           res.json({
             success: true,
             message: 'Enjoy your token!',
-            token: token
+            token: token,
+            user: user.data
           });
         }
 
@@ -64,6 +67,35 @@ module.exports = function(clearRoutes, authedRoutes , app, jwt) {
     });
   });
 
+  // Route for create a user
+  clearRoutes.post('/user', function(req, res) {
+
+    // find the user
+    User.findOne( req.body.username, function(err, user) {
+
+      if (err) res.json( err );
+
+      if (user) {
+        res.json({ success: false, message: 'User already exists' });
+      }
+      else if (!user) {
+        if (err) res.json( err );
+
+
+          var user = new User (req.body);
+          user.save(
+            function(result) {
+            console.log('User saved successfully');
+            res.json(result);
+          });
+
+
+      }
+
+    });
+
+
+  });
 
 
   // Used for create a test user

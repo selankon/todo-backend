@@ -53,6 +53,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 var jwt = require ('./lib/jwt-helper.js');
 var clearRoutes = express.Router();
 var authedRoutes = express.Router();
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 authedRoutes.use(function (req, res, next) {
   jwt.validate (req, res, next);
 });
