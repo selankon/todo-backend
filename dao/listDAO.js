@@ -100,7 +100,7 @@ ListDao.getLists = function (name, res){
         // After all data is returned, close connection and return results
         query.on('end', function() {
             done();
-            return res.json(results);
+            return res.json({results});
         });
 
       } else {

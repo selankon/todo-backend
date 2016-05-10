@@ -15,6 +15,7 @@ var config = require('./config.js');
 
 
 // var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var cors = require('cors');
 
 var app = express();
 app.set('superSecret', config.secret); // secret variable
@@ -22,6 +23,46 @@ app.set('superSecret', config.secret); // secret variable
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+
+// ENABLE CORS
+ app.use(cors());
+// var allowCrossDomain = function(req, res, next) {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+//
+//     // intercept OPTIONS method
+//     if ('OPTIONS' == req.method) {
+//       res.send(200);
+//     }
+//     else {
+//       next();
+//     }
+// };
+// app.use(allowCrossDomain);
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+//
+//   // // Website you wish to allow to connect
+//   // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:9000');
+//   //
+//   // // Request methods you wish to allow
+//   // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//   //
+//   // // Request headers you wish to allow
+//   // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//   //
+//   // // Set to true if you need the website to include cookies in the requests sent
+//   // // to the API (e.g. in case you use sessions)
+//   // res.setHeader('Access-Control-Allow-Credentials', true);
+//   //
+//   // // Pass to next layer of middleware
+//   // next();
+// });
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -40,25 +81,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(flash()); // use connect-flash for flash messages stored in session
 
 
-// Routes
-// DOESN'T WORK DUE A FUCK*NG SHIT
-// require('./routes/index.js')(app, passport);
-// require('./routes/users.js')(app, passport);
-// require('./routes/lists.js')(app, passport);
-
-// app.use('/', routes);
-// app.use('/', users);
-// app.use('/', lists);
 
 var jwt = require ('./lib/jwt-helper.js');
 var clearRoutes = express.Router();
 var authedRoutes = express.Router();
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
+
 authedRoutes.use(function (req, res, next) {
+  console.log("Authed route " );
   jwt.validate (req, res, next);
 });
 require('./routes/lists.js')(clearRoutes, authedRoutes, jwt);

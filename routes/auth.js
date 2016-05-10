@@ -51,6 +51,8 @@ module.exports = function(clearRoutes, authedRoutes , app, jwt) {
           // });
           opts = {}
           opts.username =  user.data.username
+          opts.mail =  user.data.mail
+          opts.img =  user.data.img
           var token = jwt.generateToken(req, opts)
 
           // return the information including token as JSON
